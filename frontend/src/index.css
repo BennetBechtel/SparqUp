@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .primary-button {
+  @apply rounded-2xl bg-gradient-to-br from-pink-500 to-orange-500 px-9 py-2 text-lg text-white transition-all duration-1000 hover:bg-gradient-to-tl;
+} */
+
+.primary-button {
+  @apply rounded-2xl bg-gradient-to-br from-pink-500 to-orange-500 bg-[size:200%_200%] bg-[position:0%_0%] px-9 py-2 text-lg font-semibold text-white transition-all duration-200 ease-in-out;
+}
+
+.primary-button:hover {
+  @apply bg-[position:100%_100%];
+}
+
+.primary-button:active {
+  @apply bg-[position:100%_100%] opacity-85;
+}
