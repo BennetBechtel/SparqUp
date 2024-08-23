@@ -4,11 +4,11 @@ import { NavContextProvider } from "./contexts/NavContext.jsx";
 import { AuthContextProvider } from "./contexts/AuthContext.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Home from "./pages/Home.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import OnBoarding from "./pages/OnBoarding.jsx";
+import Account from "./pages/Account.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <NavContextProvider>
@@ -17,8 +17,7 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/onboarding" element={<OnBoarding />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/register" element={<Register />} />
               <Route path="login" element={<Login />} />
 

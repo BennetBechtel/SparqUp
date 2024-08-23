@@ -6,13 +6,11 @@ const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // to test and debug at the momentF
   const handleClick = auth
     ? () => {
         setAuth(false);
       }
     : () => {
-        setAuth(true);
         navigate("/register");
       };
 
