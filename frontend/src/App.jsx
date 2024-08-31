@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import Account from "./pages/Account.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 import "react-toastify/dist/ReactToastify.css";
 function App() {
@@ -20,6 +21,7 @@ function App() {
               <Route path="/account" element={<Account />} />
               <Route path="/register" element={<Register />} />
               <Route path="login" element={<Login />} />
+              <Route path="/dashboard" element={<Dashboard />} />
 
               <Route path="*" element={<Navigate to="/" />} />
             </Route>

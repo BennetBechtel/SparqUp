@@ -6,11 +6,11 @@ const Footer = () => {
 
   return (
     <div
-      className={`flex flex-row justify-center gap-5 ${active ? "bg-pink-300" : "bg-transparent"} p-2`}
+      className={`flex flex-row justify-center h-fit gap-5 ${active ? "bg-pink-300" : "bg-transparent"} p-2`}
     >
-      <span className="text-lg font-semibold">About</span>
-      <span className="text-lg font-semibold">Impressum</span>
-      <span className="text-lg font-semibold">FAQ</span>
+      <span className="text-lg font-semibold h-fit">About</span>
+      <span className="text-lg font-semibold h-fit">Impressum</span>
+      <span className="text-lg font-semibold h-fit">FAQ</span>
     </div>
   );
 };

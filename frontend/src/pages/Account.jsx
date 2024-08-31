@@ -98,7 +98,7 @@ const Account = () => {
             <h2 className="text-xl font-semibold">About me</h2>
             <textarea
               placeholder="I like running and going to the gym"
-              className="w-full rounded-lg border-none px-3 py-2 focus:outline-none min-h-24"
+              className="min-h-24 w-full rounded-lg border-none px-3 py-2 focus:outline-none"
             />
           </section>
 
