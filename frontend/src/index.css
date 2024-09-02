@@ -28,3 +28,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.input-error-message {
+  @apply ml-2 font-semibold text-red-500;
+}

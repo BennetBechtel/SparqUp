@@ -2,23 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useMutation } from "react-query";
+import * as apiClient from "../apiClient.js";
 
 const Register = () => {
   const navigate = useNavigate();
-
-  const successToast = () => {
-    toast.success("Registration successful", {
-      position: "top-right",
-    });
-  };
-
-  const errorToast = () => {
-    toast.error("Something went wrong", {
-      position: "top-right",
-    });
-  };
 
   const {
     register,
@@ -26,14 +15,27 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
+  const mutation = useMutation(apiClient.register, {
+    onSuccess: () => {
+      toast.success("Registration successful", {
+        position: "top-right",
+      });
+      navigate("/account");
+    },
+    onError: (error) => {
+      toast.error("Something went wrong", {
+        position: "top-right",
+      });
+    },
+  });
+
+  const onSubmit = handleSubmit((formData) => {
+    mutation.mutate(formData);
+  });
 
   return (
     <div className="flex grow items-center justify-around">
       <form onSubmit={(e) => onSubmit(e)} className="w-full max-w-xl">
-        <ToastContainer />
         <input
           {...register("firstName", {
             required: "First Name is required",
@@ -42,6 +44,10 @@ const Register = () => {
           placeholder="First Name"
           className="my-2 w-full rounded-2xl border px-3 py-2"
         />
+        {errors.firstName && (
+          <p className="input-error-message">{errors.firstName.message}</p>
+        )}
+
         <input
           {...register("lastName", {
             required: "Last Name is required",
@@ -50,6 +56,10 @@ const Register = () => {
           placeholder="Last Name"
           className="my-2 w-full rounded-2xl border px-3 py-2"
         />
+        {errors.lastName && (
+          <p className="input-error-message">{errors.lastName.message}</p>
+        )}
+
         <input
           {...register("email", {
             required: "Email is required",
@@ -58,6 +68,10 @@ const Register = () => {
           placeholder="Email Address"
           className="my-2 w-full rounded-2xl border px-3 py-2"
         />
+        {errors.email && (
+          <p className="input-error-message">{errors.email.message}</p>
+        )}
+
         <input
           {...register("password", {
             required: "Password is required",
@@ -70,6 +84,9 @@ const Register = () => {
           placeholder="Password"
           className="my-2 w-full rounded-2xl border px-3 py-2"
         />
+        {errors.password && (
+          <p className="input-error-message">{errors.password.message}</p>
+        )}
 
         <button type="submit" className="primary-button w-full">
           Register
