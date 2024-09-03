@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from "../apiClient.js";
 
 const Login = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const {
@@ -16,7 +17,8 @@ const Login = () => {
   } = useForm();
 
   const mutation = useMutation(apiClient.login, {
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries("validateToken");
       toast.success("Login successful", {
         position: "top-right",
       });

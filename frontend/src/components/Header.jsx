@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Logo from "../assets/Logo.png";
+import LogoutButton from "./LogoutButton";
 import HamburgerMenuButton from "./HamburgerMenuButton";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,6 +10,8 @@ import { AuthContext } from "../contexts/AuthContext";
 const Header = () => {
   const { active, setActive } = useContext(NavContext);
   const { auth, setAuth } = useContext(AuthContext);
+
+  const logoutButtonStyle = "text-center text-2xl font-bold hover:underline";
 
   const navLinks = !auth
     ? [
@@ -72,14 +75,7 @@ const Header = () => {
               </Link>
             );
           })}
-          {auth && (
-            <button
-              className="text-center text-2xl font-bold hover:underline"
-              onClick={() => handleLogout()}
-            >
-              Logout
-            </button>
-          )}
+          {auth && <LogoutButton style={logoutButtonStyle} />}
         </span>
       </div>
 
@@ -107,14 +103,7 @@ const Header = () => {
                 </Link>
               );
             })}
-            {auth && (
-              <button
-                className="text-center text-3xl font-semibold"
-                onClick={() => handleLogout()}
-              >
-                Logout
-              </button>
-            )}
+            {auth && <LogoutButton style={logoutButtonStyle} />}
           </motion.div>
         )}
       </AnimatePresence>

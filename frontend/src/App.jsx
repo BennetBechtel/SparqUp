@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "./contexts/AuthContext.jsx";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { NavContextProvider } from "./contexts/NavContext.jsx";
-import { AuthContextProvider } from "./contexts/AuthContext.jsx";
 import Layout from "./layouts/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Account from "./pages/Account.jsx";
@@ -11,24 +10,27 @@ import Dashboard from "./pages/Dashboard.jsx";
 
 import "react-toastify/dist/ReactToastify.css";
 function App() {
-  return (
-    <NavContextProvider>
-      <AuthContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="login" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+  const { auth } = useContext(AuthContext);
 
-              <Route path="*" element={<Navigate to="/" />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AuthContextProvider>
-    </NavContextProvider>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+
+          {auth && (
+            <>
+              <Route path="/account" element={<Account />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </>
+          )}
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { NavContextProvider } from "./contexts/NavContext.jsx";
+import { AuthContext, AuthContextProvider } from "./contexts/AuthContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,7 +17,11 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <NavContextProvider>
+        <AuthContextProvider>
+          <App />
+        </AuthContextProvider>
+      </NavContextProvider>
     </QueryClientProvider>
   </StrictMode>,
 );
