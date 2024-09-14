@@ -56,3 +56,30 @@ export const logout = async () => {
     throw new Error("Error during logout");
   }
 };
+
+export const fetchCurrentUser = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/user/me`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseBody.message);
+  }
+
+  return responseBody;
+};
+
+export const updateUser = async (formData) => {
+  const response = fetch(`${API_BASE_URL}/api/user/update-user`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  return response.ok;
+};

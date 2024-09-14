@@ -19,29 +19,30 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  birthData: {
-    type: Date,
+  birthDate: {
+    type: String,
     required: false,
+    default: "",
   },
   genderIdentity: {
     type: String,
     required: false,
+    default: "",
   },
   genderInterest: {
     type: String,
     required: false,
-  },
-  showGender: {
-    type: Boolean,
-    required: false,
+    default: "",
   },
   profilePictureUrl: {
     type: String,
     required: false,
+    default: "",
   },
   about: {
     type: String,
     required: false,
+    default: "",
   },
   matches: [
     {
@@ -49,6 +50,11 @@ const userSchema = new mongoose.Schema({
       required: false,
     },
   ],
+  verified: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 userSchema.pre("save", async function (next) {

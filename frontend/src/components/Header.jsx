@@ -9,7 +9,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const Header = () => {
   const { active, setActive } = useContext(NavContext);
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   const logoutButtonStyle = "text-center text-2xl font-bold hover:underline";
 
@@ -39,11 +39,6 @@ const Header = () => {
       scaleY: 0,
       transition: { duration: 0.45, ease: [0.22, 1, 0.31, 1] },
     },
-  };
-
-  const handleLogout = () => {
-    setAuth(false);
-    setActive(false);
   };
 
   return (
@@ -86,7 +81,7 @@ const Header = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-[60px] flex w-full origin-top flex-col justify-center gap-3 bg-pink-200 pb-28"
+            className="fixed left-0 top-[60px] z-50 flex w-full origin-top flex-col justify-center gap-3 bg-pink-200 pb-28"
             style={{
               height: "calc(100vh - 60px - 44px)",
             }}

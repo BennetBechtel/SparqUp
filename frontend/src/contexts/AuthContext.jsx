@@ -1,8 +1,8 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import * as apiClient from "../apiClient.js";
 
-const AuthContext = createContext(false);
+const AuthContext = createContext(null);
 
 const AuthContextProvider = ({ children }) => {
   const { isError } = useQuery("validateToken", apiClient.validateToken, {
