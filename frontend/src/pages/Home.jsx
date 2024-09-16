@@ -11,7 +11,12 @@ const Home = () => {
     <div className="flex min-h-full grow flex-col items-center justify-center gap-5">
       <h1 className="w-fit text-4xl font-extrabold">SparqUp®</h1>
       {auth ? (
-        <LogoutButton style={"primary-button w-fit"} />
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="primary-button w-fit"
+        >
+          Go to Dashboard
+        </button>
       ) : (
         <button
           onClick={() => navigate("/register")}

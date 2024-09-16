@@ -36,7 +36,7 @@ const Register = () => {
   });
 
   return (
-    <div className="flex grow items-center justify-around">
+    <div className="flex grow items-center justify-around px-3">
       <form onSubmit={(e) => onSubmit(e)} className="w-full max-w-xl">
         <input
           {...register("firstName", {

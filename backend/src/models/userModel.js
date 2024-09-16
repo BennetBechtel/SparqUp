@@ -50,6 +50,26 @@ const userSchema = new mongoose.Schema({
       required: false,
     },
   ],
+  swiped: {
+    left: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
+    right: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
+  },
+  likedBy: [
+    {
+      type: String,
+      required: false,
+    },
+  ],
   verified: {
     type: Boolean,
     required: true,

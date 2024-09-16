@@ -15,6 +15,8 @@ export const register = async (formData) => {
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
+
+  return responseBody;
 };
 
 export const login = async (formData) => {
@@ -32,6 +34,8 @@ export const login = async (formData) => {
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
+
+  return responseBody;
 };
 
 export const validateToken = async () => {
@@ -39,11 +43,13 @@ export const validateToken = async () => {
     credentials: "include",
   });
 
+  const responseBody = await response.json();
+
   if (!response.ok) {
     throw new Error("Token invalid");
   }
 
-  return response.json();
+  return responseBody;
 };
 
 export const logout = async () => {
@@ -65,7 +71,7 @@ export const fetchCurrentUser = async () => {
   const responseBody = await response.json();
 
   if (!response.ok) {
-    throw new Error(responseBody.message);
+    throw new Error("Error fetching user");
   }
 
   return responseBody;
@@ -82,4 +88,40 @@ export const updateUser = async (formData) => {
   });
 
   return response.ok;
+};
+
+export const fetchRelevantUsers = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/user/users`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Error fetching users");
+  }
+
+  return responseBody;
+};
+
+export const addSwipedUser = async (userId, direction) => {
+  const response = await fetch(`${API_BASE_URL}/api/user/swipe`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      direction: direction,
+      swipedUserId: userId,
+    }),
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseBody.message);
+  }
+
+  return responseBody;
 };
