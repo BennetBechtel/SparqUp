@@ -11,7 +11,6 @@ const SwipeCard = ({ user, users, setUsers }) => {
   const rotate = useTransform(x, [-250, 250], [-18, 18]);
 
   const handleDragEnd = () => {
-    setUsers(users.filter((usr) => usr._id !== user._id));
     if (Math.abs(x.get()) > 150) {
       // Logic for like or dislike
       if (x.get() > 0) {
@@ -23,6 +22,7 @@ const SwipeCard = ({ user, users, setUsers }) => {
       }
 
       // Remove Card from Stack
+      setUsers(users.filter((usr) => usr._id !== user._id));
       setUsers(
         users.filter((usr) => usr._id.toString() !== user._id.toString()),
       );

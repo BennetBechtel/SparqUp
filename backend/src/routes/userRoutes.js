@@ -4,6 +4,7 @@ import verifyToken from "../middleware/verifyToken.js";
 import { check, validationResult } from "express-validator";
 import isUserValid from "../util/isUserValid.js";
 import generateGenderFilter from "../util/generateGenderFilter.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -14,26 +15,30 @@ router.get("/users", verifyToken, async (req, res) => {
       return res.status(404).json({ message: "No user found" });
     }
 
-    let users = await User.find({
-      ...generateGenderFilter(reqUser),
-      verified: true,
-      _id: {
-        $nin: [
-          req.userId,
-          ...reqUser.swiped.left,
-          ...reqUser.swiped.right,
-          ...reqUser.matches,
-        ],
+    const excludedIds = [
+      new mongoose.Types.ObjectId(req.userId),
+      ...reqUser.swiped.left.map((id) => new mongoose.Types.ObjectId(id)),
+      ...reqUser.swiped.right.map((id) => new mongoose.Types.ObjectId(id)),
+      ...reqUser.matches.map((id) => new mongoose.Types.ObjectId(id)),
+    ];
+
+    const users = await User.aggregate([
+      {
+        $match: {
+          ...generateGenderFilter(reqUser),
+          verified: true,
+          _id: { $nin: excludedIds },
+        },
       },
-    }).select("-password");
+      { $sample: { size: 50 } },
+      {
+        $project: { password: 0 },
+      },
+    ]);
+
     if (!users) {
       return res.status(404).json({ message: "No users found" });
     }
-
-    users = users.filter(
-      (user) => !reqUser.matches.includes(user._id.toString()),
-    );
-    users = users.filter((user) => user._id.toString() !== req.userId);
 
     return res.status(200).json({ users: users });
   } catch (error) {
