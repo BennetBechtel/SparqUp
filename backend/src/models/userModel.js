@@ -64,12 +64,6 @@ const userSchema = new mongoose.Schema({
       },
     ],
   },
-  likedBy: [
-    {
-      type: String,
-      required: false,
-    },
-  ],
   verified: {
     type: Boolean,
     required: true,

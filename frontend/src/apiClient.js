@@ -125,3 +125,17 @@ export const addSwipedUser = async (userId, direction) => {
 
   return responseBody;
 };
+
+export const fetchAllMatches = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/user/matches`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Error fetching matches");
+  }
+
+  return responseBody;
+};

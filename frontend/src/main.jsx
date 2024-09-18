@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { NavContextProvider } from "./contexts/NavContext.jsx";
-import { AuthContext, AuthContextProvider } from "./contexts/AuthContext.jsx";
+import { AuthContextProvider } from "./contexts/AuthContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {

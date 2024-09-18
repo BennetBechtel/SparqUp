@@ -126,7 +126,12 @@ router.post("/swipe", verifyToken, async (req, res) => {
       user.swiped.left.push(req.body.swipedUserId);
     } else if (req.body.direction === "right") {
       user.swiped.right.push(req.body.swipedUserId);
-      swipedUser.likedBy.push(req.userId);
+
+      const match = swipedUser.swiped.right.includes(req.userId);
+      if (match) {
+        user.matches.push(req.body.swipedUserId);
+        swipedUser.matches.push(req.userId);
+      }
     } else {
       return res.status(400).json({ message: "Select a direction to add to" });
     }
@@ -135,6 +140,31 @@ router.post("/swipe", verifyToken, async (req, res) => {
     await swipedUser.save();
 
     return res.status(200).json({ message: "UserIds added successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.get("/matches", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    const matchingIds = [
+      ...user.matches.map((id) => new mongoose.Types.ObjectId(id)),
+    ];
+
+    const matches = await User.find({
+      _id: { $in: matchingIds },
+    }).select("-password");
+    if (!matches) {
+      return res.status(400).json({ message: "No matches found" });
+    }
+
+    return res.status(200).json({ matches: matches });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });

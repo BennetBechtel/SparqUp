@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 import ChatDisplay from "./ChatDisplay";
 import MatchesDisplay from "./MatchesDisplay";
+import ImageWithFallback from "./ImageWithFallback";
 
-const SideBar = () => {
+const SideBar = ({ currentUser }) => {
   const [currentlyOpen, setCurrentlyOpen] = useState("matches");
+
+  const [currentChat, setCurrentChat] = useState();
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-r-xl bg-black bg-opacity-35">
       <section className="flex items-center gap-1 border-b-2 border-b-black bg-pink-200 p-1">
-        <img
-          src="https://www.si.com/.image/t_share/MjAyMjc3MjQ4NjUxMjQwNTE2/usatsi_21857042.jpg"
+        <ImageWithFallback
+          src={currentUser.profilePictureUrl}
+          fallbackSrc={
+            "https://ih1.redbubble.net/image.1046392292.3346/tst,medium,507x507-pad,600x600,f8f8f8.jpg"
+          }
+          alt={"Profile Picture"}
           className="size-10 rounded-full bg-white object-cover"
         />
-        <p className="text-xl font-bold text-black">Alex Caruso</p>
+        <p className="text-xl font-bold text-black">
+          {currentUser.firstName} {currentUser.lastName}
+        </p>
       </section>
 
       <section className="grid grid-cols-2">
@@ -31,8 +40,12 @@ const SideBar = () => {
       </section>
 
       <section className="flex grow p-2">
-        {currentlyOpen === "matches" && <MatchesDisplay />}
-        {currentlyOpen === "chat" && <ChatDisplay />}
+        {currentlyOpen === "matches" && (
+          <MatchesDisplay setCurrentChat={setCurrentChat} />
+        )}
+        {currentlyOpen === "chat" && (
+          <ChatDisplay user={currentUser} currentChat={currentChat} />
+        )}
       </section>
     </div>
   );

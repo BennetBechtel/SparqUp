@@ -3,8 +3,11 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import calculateAge from "../util/calculateAge.js";
 import ImageWithFallback from "./ImageWithFallback";
 import * as apiClient from "../apiClient.js";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const SwipeCard = ({ user, users, setUsers }) => {
+const SwipeCard = ({ currentUser, user, users, setUsers }) => {
+  const navigate = useNavigate();
   const x = useMotionValue(0);
 
   const opacity = useTransform(x, [-250, 0, 120], [0.1, 1, 0.1]);
@@ -12,12 +15,15 @@ const SwipeCard = ({ user, users, setUsers }) => {
 
   const handleDragEnd = () => {
     if (Math.abs(x.get()) > 150) {
+      currentUser.verified === false &&
+        (navigate("/account"),
+        toast.error("Finish setting up your account first...", {
+          position: "top-right",
+        }));
       // Logic for like or dislike
       if (x.get() > 0) {
-        console.log("You Swiped Right");
         apiClient.addSwipedUser(user._id, "right");
       } else {
-        console.log("You Swiped Left");
         apiClient.addSwipedUser(user._id, "left");
       }
 

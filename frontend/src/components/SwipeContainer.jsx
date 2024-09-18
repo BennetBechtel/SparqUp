@@ -3,7 +3,7 @@ import SwipeCard from "./SwipeCard";
 import { useQuery } from "react-query";
 import * as apiClient from "../apiClient.js";
 
-const SwipeContainer = () => {
+const SwipeContainer = ({ currentUser }) => {
   const [users, setUsers] = useState([]);
 
   const { data: usersData } = useQuery(
@@ -31,6 +31,7 @@ const SwipeContainer = () => {
     <div className="grid min-h-full grid-cols-1 place-items-center overflow-hidden">
       {users?.map((user) => (
         <SwipeCard
+          currentUser={currentUser}
           user={user}
           users={users}
           setUsers={setUsers}
