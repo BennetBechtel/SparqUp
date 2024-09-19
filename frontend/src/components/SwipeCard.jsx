@@ -39,7 +39,7 @@ const SwipeCard = ({ currentUser, user, users, setUsers }) => {
 
   return (
     <motion.div
-      className="flex h-[480px] w-[400px] flex-col overflow-y-hidden rounded-xl bg-white hover:cursor-grab active:cursor-grabbing"
+      className="flex h-full max-h-[480px] w-full max-w-[400px] flex-col overflow-y-hidden rounded-xl bg-white hover:cursor-grab active:cursor-grabbing"
       style={{ gridRow: 1, gridColumn: 1, x, opacity, rotate }}
       drag="x"
       dragConstraints={{

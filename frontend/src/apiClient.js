@@ -139,3 +139,41 @@ export const fetchAllMatches = async () => {
 
   return responseBody;
 };
+
+export const fetchMessages = async (chatUserId) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/message/fetch-messages/${chatUserId}`,
+    {
+      credentials: "include",
+    },
+  );
+
+  console.log("ID: ", chatUserId);
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Error fetching messages");
+  }
+
+  return responseBody;
+};
+
+export const sendMessage = async (formData) => {
+  const response = await fetch(`${API_BASE_URL}/api/message/send-message`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Error fetching messages");
+  }
+
+  return responseBody;
+};

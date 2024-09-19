@@ -103,7 +103,7 @@ router.post("/logout", async (req, res) => {
   res.cookie("auth_token", "", {
     expires: new Date(0),
   });
-  return res.status(200).json({ message: "Logout success" });
+  return res.status(200).json({ message: "Logout successful" });
 });
 
 router.get("/validate-token", verifyToken, (req, res) => {

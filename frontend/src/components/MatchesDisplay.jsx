@@ -4,7 +4,7 @@ import * as apiClinet from "../apiClient.js";
 import calculateAge from "../util/calculateAge.js";
 import ImageWithFallback from "./ImageWithFallback.jsx";
 
-const MatchesDisplay = ({ setCurrentChat }) => {
+const MatchesDisplay = ({ setCurrentlyOpen, setCurrentChat }) => {
   const { data: matches, isLoading } = useQuery(
     "fetchAllMatches",
     apiClinet.fetchAllMatches,
@@ -20,16 +20,19 @@ const MatchesDisplay = ({ setCurrentChat }) => {
 
   return (
     <div
-      className="scrollbar-hide grid w-full grid-cols-2 gap-1 overflow-y-scroll"
+      className="scrollbar-hide grid w-full grid-cols-2 content-start gap-2 overflow-y-scroll"
       style={{
-        height: "calc(100vh - (206px)",
+        height: "calc(100vh - 204px)",
       }}
     >
       {matches?.matches.map((match) => (
         <div
           key={match._id + Math.random()}
-          onClick={() => setCurrentChat(match._id)}
-          className="relative h-52 overflow-hidden rounded-md hover:cursor-pointer"
+          onClick={() => {
+            setCurrentChat(match);
+            setCurrentlyOpen("chat");
+          }}
+          className="relative h-48 overflow-hidden rounded-md hover:cursor-pointer"
         >
           <ImageWithFallback
             src={match.profilePictureUrl}

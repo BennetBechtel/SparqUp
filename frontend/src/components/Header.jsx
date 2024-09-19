@@ -26,6 +26,7 @@ const Header = () => {
       ]
     : [
         { title: "Home", href: "/" },
+        { title: "Dashboard", href: "/dashboard" },
         { title: "Account", href: "/account" },
       ];
 
@@ -81,10 +82,7 @@ const Header = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-[60px] z-50 flex w-full origin-top flex-col justify-center gap-3 bg-pink-200 pb-28"
-            style={{
-              height: "calc(100vh - 60px - 44px)",
-            }}
+            className="fixed left-0 top-[60px] z-50 flex h-[calc(100vh-60px)] w-full origin-top flex-col justify-center gap-3 bg-pink-200 pb-28 lg:h-[calc(100vh-60px-44px)]"
           >
             {navLinks.map((link, index) => {
               return (

@@ -5,6 +5,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -24,8 +25,10 @@ app.use(
 );
 app.use(cookieParser());
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/message", messageRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on localhost:${port}`);

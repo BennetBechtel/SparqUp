@@ -3,13 +3,11 @@ import ChatDisplay from "./ChatDisplay";
 import MatchesDisplay from "./MatchesDisplay";
 import ImageWithFallback from "./ImageWithFallback";
 
-const SideBar = ({ currentUser }) => {
-  const [currentlyOpen, setCurrentlyOpen] = useState("matches");
-
-  const [currentChat, setCurrentChat] = useState();
+const SideBar = ({ currentUser, currentlyOpen, setCurrentlyOpen }) => {
+  const [currentChat, setCurrentChat] = useState({});
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-r-xl bg-black bg-opacity-35">
+    <div className="flex h-full flex-col overflow-hidden bg-black bg-opacity-35 lg:rounded-r-xl">
       <section className="flex items-center gap-1 border-b-2 border-b-black bg-pink-200 p-1">
         <ImageWithFallback
           src={currentUser.profilePictureUrl}
@@ -41,7 +39,10 @@ const SideBar = ({ currentUser }) => {
 
       <section className="flex grow p-2">
         {currentlyOpen === "matches" && (
-          <MatchesDisplay setCurrentChat={setCurrentChat} />
+          <MatchesDisplay
+            setCurrentlyOpen={setCurrentlyOpen}
+            setCurrentChat={setCurrentChat}
+          />
         )}
         {currentlyOpen === "chat" && (
           <ChatDisplay user={currentUser} currentChat={currentChat} />
