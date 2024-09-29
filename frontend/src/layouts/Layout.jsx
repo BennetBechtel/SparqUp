@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <>
       <ToastContainer />
-      <div className="grid h-fit min-h-screen grid-rows-[auto_1fr_auto] bg-gradient-to-b from-pink-300 to-orange-300">
+      <div className="grid h-fit min-h-svh grid-rows-[auto_1fr_auto] bg-gradient-to-b from-pink-300 to-orange-300">
         <Header />
         <Outlet />
         <section className="hidden lg:inline">
