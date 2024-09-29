@@ -37,7 +37,8 @@ const SwipeContainer = ({ currentUser }) => {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="max-w-80 select-none text-center text-2xl font-bold">
-          No users found who match your interests... <br /> Try reloading page
+          No users found who match your interests... <br /> Try reloading the
+          page
         </p>
       </div>
     );
